@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Claim your brand — BrandrAI Directory</title>
+<style>
+  :root{--green:#0F6E56;--green-dark:#0A4A3A;--ink:#1a1a1a;--muted:#6b6f6d;--line:#e2e5e4;--bg:#f6f7f6;--card:#fff;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;}
+  .wrap{max-width:580px;margin:0 auto;padding:40px 20px 64px;}
+  h1{font-size:28px;margin:0 0 8px;letter-spacing:-0.4px;}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 24px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px 24px 28px;}
+  label{display:block;font-size:13px;font-weight:500;margin:16px 0 6px;color:#2a2f2d;}
+  label .req{color:#b23b3b;}
+  input,select,textarea{width:100%;font:inherit;font-size:15px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(15,110,86,.12);}
+  textarea{min-height:70px;resize:vertical;}
+  .hint{font-size:12px;color:var(--muted);margin:4px 0 0;}
+  .chk{display:flex;gap:10px;align-items:flex-start;margin-top:18px;}
+  .chk input{width:auto;margin-top:3px;}
+  .chk label{margin:0;font-weight:400;font-size:14px;color:#3a3f3d;}
+  button{margin-top:22px;width:100%;background:var(--green);color:#fff;font-size:16px;font-weight:500;border:none;padding:13px;border-radius:11px;cursor:pointer;}
+  button:hover{background:var(--green-dark);}
+  .disc{background:#eef4f1;border:1px solid #cfe0d8;border-radius:12px;padding:14px 16px;font-size:13px;color:#2a4a3f;margin:0 0 22px;}
+  .thanks{background:#e7f4ec;border:1px solid #bfe0cb;border-radius:16px;padding:28px;text-align:center;}
+  .thanks h2{margin:0 0 8px;font-size:20px;color:#1c6b3f;}
+  .thanks p{margin:0;color:#3a5a4a;font-size:15px;}
+  .footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="thanks" class="thanks" style="display:none;">
+    <h2>Thanks — we've got your claim</h2>
+    <p>We verify every claim (business email + license check) before handing over the page, usually within 1–2 business days. We'll email you once it's verified.</p>
+  </div>
+
+  <div id="formview">
+    <h1>Claim your brand</h1>
+    <p class="sub" id="leadline">Verify your brand and take control of your directory page.</p>
+    <div class="disc">Claiming confirms this page is officially yours — so you can fix your images, update your info, and control what people and AI assistants see. We verify by business email + state license before handover.</div>
+
+    <form class="card" action="https://formspree.io/f/xvznewbq" method="POST" id="claimForm">
+      <input type="hidden" name="source" value="brand-claim" />
+      <input type="hidden" name="_subject" id="_subject" value="New brand claim — BrandrAI directory" />
+
+      <label>Brand name <span class="req">*</span></label>
+      <input type="text" name="brand" id="brand" required />
+
+      <label>State / region you're claiming <span class="req">*</span></label>
+      <select name="state" id="state" required></select>
+      <p class="hint">Claims are per state — if you operate in multiple states, claim each one separately.</p>
+
+      <label>Your full name <span class="req">*</span></label>
+      <input type="text" name="name" required />
+
+      <label>Your role <span class="req">*</span></label>
+      <select name="role" required>
+        <option value="">Select…</option>
+        <option>Owner</option>
+        <option>Marketing / brand lead</option>
+        <option>Authorized manager</option>
+        <option>Agency (on the brand's behalf)</option>
+      </select>
+
+      <label>Business email <span class="req">*</span></label>
+      <input type="email" name="email" required placeholder="you@yourbrand.com" />
+      <p class="hint">Must be on the brand's own domain — this is the primary verification.</p>
+
+      <label>State license # <span class="req">*</span></label>
+      <input type="text" name="license_number" required />
+      <p class="hint">Your cannabis license for this state — strongest proof for a regional claim.</p>
+
+      <label>Brand website</label>
+      <input type="url" name="website" placeholder="https://" />
+
+      <label>Anything else / proof links</label>
+      <textarea name="notes" placeholder="e.g. a page on your site listing you as the manager"></textarea>
+
+      <div class="chk">
+        <input type="checkbox" id="auth" name="authorized" value="yes" required />
+        <label for="auth">I confirm I'm authorized to manage this brand in this region.</label>
+      </div>
+
+      <button type="submit">Submit claim</button>
+    </form>
+    <div class="footer">Questions? <a href="mailto:hi@brandrai.com">hi@brandrai.com</a></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STATES=["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","District of Columbia","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"];
+  var qs=new URLSearchParams(location.search);
+  // thank-you state after Formspree redirect
+  if(qs.get('submitted')==='1'){document.getElementById('formview').style.display='none';document.getElementById('thanks').style.display='block';return;}
+  // populate states
+  var sel=document.getElementById('state');
+  var pState=qs.get('state')||'';
+  sel.innerHTML='<option value="">Select…</option>'+STATES.map(function(s){return '<option'+(s.toLowerCase()===pState.toLowerCase()?' selected':'')+'>'+s+'</option>';}).join('');
+  // prefill brand + lead line
+  var pBrand=qs.get('brand')||'';
+  if(pBrand){document.getElementById('brand').value=pBrand;document.getElementById('leadline').textContent='You’re claiming '+pBrand+'. Verify it and take control of your directory page.';}
+  // redirect back here with a thank-you after Formspree accepts
+  var next=document.createElement('input');next.type='hidden';next.name='_next';
+  next.value=location.origin+location.pathname+'?submitted=1';
+  document.getElementById('claimForm').appendChild(next);
+  // dynamic subject
+  document.getElementById('claimForm').addEventListener('submit',function(){
+    var b=document.getElementById('brand').value||'brand',s=document.getElementById('state').value||'';
+    document.getElementById('_subject').value='New brand claim: '+b+(s?' ('+s+')':'');
+  });
+})();
+</script>
+</body>
+</html>
