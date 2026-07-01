@@ -29,6 +29,9 @@
   .thanks h2{margin:0 0 8px;font-size:20px;color:#1c6b3f;}
   .thanks p{margin:0;color:#3a5a4a;font-size:15px;}
   .footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px;}
+  .topnav{margin:0 0 18px;}
+  .topnav a{color:var(--muted);font-size:14px;text-decoration:none;}
+  .topnav a:hover{color:var(--green);}
 </style>
 </head>
 <body>
@@ -39,6 +42,7 @@
   </div>
 
   <div id="formview">
+    <div class="topnav"><a href="directory.html" onclick="if(history.length>1){history.back();return false;}">&lsaquo; Back</a></div>
     <h1>Claim your brand</h1>
     <p class="sub" id="leadline">Verify your brand and take control of your directory page.</p>
     <div class="disc">Claiming confirms this page is officially yours — so you can fix your images, update your info, and control what people and AI assistants see. We verify by business email + state license before handover.</div>
